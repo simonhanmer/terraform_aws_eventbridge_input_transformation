@@ -63,3 +63,12 @@ resource "aws_iam_role_policy_attachment" "reader_role_policy_attachment" {
   role       = aws_iam_role.reader_lambda_execution_role.name
   policy_arn = aws_iam_policy.lambda_logging_policy.arn
 }
+
+
+resource "aws_lambda_permission" "trigger_reader_from_eventbridge" {
+  statement_id  = "AllowExecutionFromEventbridge"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.reader_function.function_name
+  principal     = "events.amazonaws.com"
+  source_arn    = aws_cloudwatch_event_rule.test_bucket_event_rule.arn
+}
