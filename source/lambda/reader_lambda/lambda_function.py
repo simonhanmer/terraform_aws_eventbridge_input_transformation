@@ -16,9 +16,8 @@ def lambda_handler(event, context):
     log.info(f"Found {len(messages)} messages")
 
     for message in messages:
-        log.debug(f"message body = {json.loads(message['body'])}")
-        requestParameters=json.loads(message['body'])['detail']['requestParameters']
-        log.info(f"Process {requestParameters['key']} uploaded to bucket {requestParameters['bucketName']}")
+        log.debug(f"message = {message}")
+        bucketName = message['s3']['bucket']['name']
+        log.info(f"Event Name = {message['eventName']} on bucket {bucketName}")
 
-    raise Exception('force failure of lambda')
         
