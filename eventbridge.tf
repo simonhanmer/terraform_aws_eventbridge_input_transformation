@@ -25,8 +25,6 @@ resource "aws_cloudwatch_event_target" "eventbridge_lambda" {
     input_paths = {
       bucketName = "$.detail.requestParameters.bucketName",
       objectKey = "$.detail.requestParameters.key"
-      instance = "$.detail.instance",
-      status   = "$.detail.status",
     }
     input_template = <<EOF
 {
